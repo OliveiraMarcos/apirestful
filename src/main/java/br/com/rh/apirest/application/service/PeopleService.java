@@ -6,10 +6,13 @@
 package br.com.rh.apirest.application.service;
 
 import br.com.rh.apirest.application.dtos.PeopleDto;
+import br.com.rh.apirest.application.dtos.SectorDto;
 import br.com.rh.apirest.domain.entities.People;
+import br.com.rh.apirest.domain.entities.Sector;
 import br.com.rh.apirest.domain.interfaces.repository.IPeopleRepository;
 import br.com.rh.apirest.services.api.interfaces.service.IPeopleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.google.common.reflect.TypeToken;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -37,7 +40,7 @@ public class PeopleService extends BaseService<PeopleDto,People> implements IPeo
     }
     
     private PeopleDto SaveEntity(PeopleDto dto){
-        var entity = this.modelMapper.map(dto, People.class);
+        var entity = this.getModelMapper().map(dto, People.class);
         var sector = dto.getSector();
         if(sector != null && sector.getId() > 0){
             entity.setSectorId(sector.getId());
@@ -45,6 +48,13 @@ public class PeopleService extends BaseService<PeopleDto,People> implements IPeo
         this._peopleRepository.save(entity);
         Commit();
         return dto;
+    }
+
+    @Override
+    public List<PeopleDto> GetListBySector(SectorDto sector) {
+        var entity = this.getModelMapper().map(sector, Sector.class);
+        var entitys = this._peopleRepository.findByIdOrName(entity.getId(),entity.getName());
+        return this.getModelMapper().map(entitys, new TypeToken<List<PeopleDto>>(getClass()){}.getType());
     }
     
 }

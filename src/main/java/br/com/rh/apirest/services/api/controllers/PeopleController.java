@@ -6,6 +6,7 @@
 package br.com.rh.apirest.services.api.controllers;
 
 import br.com.rh.apirest.application.dtos.PeopleDto;
+import br.com.rh.apirest.application.dtos.SectorDto;
 import br.com.rh.apirest.services.api.interfaces.service.IPeopleService;
 import br.com.rh.apirest.services.api.response.Result;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -46,6 +48,17 @@ public class PeopleController extends ApiController{
         try{
             var entity = _peopleService.GetById(id);
             return ResponseSuccess(entity, HttpStatus.OK);
+        }catch(Exception ex){
+            return ResponseErro(HttpStatus.BAD_REQUEST, ex);
+        }
+    }
+    @RequestMapping(value = "/filterBySector", method = RequestMethod.GET)
+    public ResponseEntity<Result<List<PeopleDto>>> GetBySector(@RequestParam long id, @RequestParam String name){
+        try{
+            var dto = new SectorDto();
+            dto.setName(name).setId(id);
+            var list = _peopleService.GetListBySector(dto);
+            return ResponseSuccess(list, HttpStatus.OK);
         }catch(Exception ex){
             return ResponseErro(HttpStatus.BAD_REQUEST, ex);
         }

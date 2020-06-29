@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BaseService<TDto extends Identity,TEntity extends BaseEntity> implements IBaseService<TDto,TEntity> {
 
     @Autowired
-    protected ModelMapper modelMapper;
+    private ModelMapper modelMapper;
  
     private IBaseRepository<TEntity> _repository;
     
@@ -44,7 +44,7 @@ public class BaseService<TDto extends Identity,TEntity extends BaseEntity> imple
     @Override
     public List<TDto> GetALL() {
         List<TEntity> entitys = this._repository.findAll();
-        List<TDto> dtos = this.modelMapper.map(entitys, new TypeToken<List<TDto>>(getClass()){}.getType());
+        List<TDto> dtos = this.modelMapper.map(entitys, new TypeToken<TDto>(getClass()){}.getType());
         return dtos;
     }
 
@@ -77,5 +77,7 @@ public class BaseService<TDto extends Identity,TEntity extends BaseEntity> imple
         return 1;
     }
 
-    
+    protected ModelMapper getModelMapper(){
+        return this.modelMapper;
+    }
 }
