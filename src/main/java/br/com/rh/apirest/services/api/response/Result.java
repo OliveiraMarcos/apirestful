@@ -7,6 +7,7 @@ package br.com.rh.apirest.services.api.response;
 
 import br.com.rh.apirest.application.dtos.Identity;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 
@@ -85,6 +86,14 @@ public class Result<T extends Object> {
      */
     public Result setErrors(List<String> errors) {
         this.errors = errors;
+        return this;
+    }
+    
+    public Result addError(String error){
+        if(this.errors == null){
+            this.errors = new ArrayList();
+        }
+        this.errors.add(error);
         return this;
     }
 }

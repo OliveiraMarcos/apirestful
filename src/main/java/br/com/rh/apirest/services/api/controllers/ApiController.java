@@ -5,7 +5,7 @@
  */
 package br.com.rh.apirest.services.api.controllers;
 
-import br.com.rh.apirest.application.dtos.Identity;
+
 import br.com.rh.apirest.services.api.response.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,8 @@ public abstract class ApiController {
         var result = new Result<T>();
         result.setCode(code)
               .setMessage("Error!")
-              .setObjectResponse(entity);
+              .setObjectResponse(entity)
+              .addError(ex.getMessage());
         return new ResponseEntity<Result<T>>(
         result, code
         );
@@ -32,7 +33,7 @@ public abstract class ApiController {
     public <T extends Object> ResponseEntity<Result<T>> ResponseSuccess(T entity, HttpStatus code){
         var result = new Result<T>();
         result.setCode(code)
-              .setMessage("Error!")
+              .setMessage("Success!")
               .setObjectResponse(entity);
         return new ResponseEntity<Result<T>>(
         result, code

@@ -20,5 +20,5 @@ public interface IBaseService<TDto extends Identity,TEntity extends BaseEntity> 
     TDto Create(TDto dto);
     TDto Update(TDto dto);
     int Delete(long id);
-
+    int Commit();
 }

@@ -24,12 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @author mar_a
  */
 @RestController
+@RequestMapping("/api/people")
 public class PeopleController extends ApiController{
     
     @Autowired
     private IPeopleService _peopleService;
     
-    @RequestMapping(value = "api/people", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Result<List<PeopleDto>>> Get() {
         try{
             var list = _peopleService.GetALL();
@@ -40,7 +41,7 @@ public class PeopleController extends ApiController{
         
     }
     
-    @RequestMapping(value = "api/people/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Result<PeopleDto>> GetById(@PathVariable(value = "id") long id) {
         try{
             var entity = _peopleService.GetById(id);
@@ -50,7 +51,7 @@ public class PeopleController extends ApiController{
         }
     }
     
-    @RequestMapping(value = "api/people", method =  RequestMethod.POST)
+    @RequestMapping( method =  RequestMethod.POST)
     public ResponseEntity<Result<PeopleDto>> Post(@Valid @RequestBody PeopleDto people)
     {
         try{
@@ -61,7 +62,7 @@ public class PeopleController extends ApiController{
         }
     }
     
-    @RequestMapping(value = "api/people", method =  RequestMethod.PUT)
+    @RequestMapping( method =  RequestMethod.PUT)
     public ResponseEntity<Result<PeopleDto>> Put(@Valid @RequestBody PeopleDto people)
     {
         try{
@@ -72,7 +73,7 @@ public class PeopleController extends ApiController{
         }
     }
 
-    @RequestMapping(value = "api/people/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Result<PeopleDto>> Delete(@PathVariable(value = "id") long id)
     {
         var entity = this._peopleService.GetById(id);

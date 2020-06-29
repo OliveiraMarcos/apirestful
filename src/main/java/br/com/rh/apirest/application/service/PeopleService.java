@@ -19,9 +19,32 @@ import org.springframework.stereotype.Service;
 @Service
 public class PeopleService extends BaseService<PeopleDto,People> implements IPeopleService{
     
-    @Autowired
+    private IPeopleRepository _peopleRepository;
+    //@Autowired
     public PeopleService(IPeopleRepository repository) {
         super(repository);
+        _peopleRepository = repository;
+    }
+    
+    @Override
+    public PeopleDto Create(PeopleDto dto) {
+        return SaveEntity(dto);
+    }
+
+    @Override
+    public PeopleDto Update(PeopleDto dto) {
+        return SaveEntity(dto);
+    }
+    
+    private PeopleDto SaveEntity(PeopleDto dto){
+        var entity = this.modelMapper.map(dto, People.class);
+        var sector = dto.getSector();
+        if(sector != null && sector.getId() > 0){
+            entity.setSectorId(sector.getId());
+        }
+        this._peopleRepository.save(entity);
+        Commit();
+        return dto;
     }
     
 }

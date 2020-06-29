@@ -24,11 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @author mar_a
  */
 @RestController
+@RequestMapping("/api/sector")
 public class SectorController extends ApiController {
     @Autowired
     private ISectorService _sectorService;
     
-    @RequestMapping(value = "api/sector", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Result<List<SectorDto>>> Get() {
         try{
             var list = _sectorService.GetALL();
@@ -39,7 +40,7 @@ public class SectorController extends ApiController {
         
     }
     
-    @RequestMapping(value = "api/sector/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Result<SectorDto>> GetById(@PathVariable(value = "id") long id) {
         try{
             var entity = _sectorService.GetById(id);
@@ -49,7 +50,7 @@ public class SectorController extends ApiController {
         }
     }
     
-    @RequestMapping(value = "api/sector", method =  RequestMethod.POST)
+    @RequestMapping(method =  RequestMethod.POST)
     public ResponseEntity<Result<SectorDto>> Post(@Valid @RequestBody SectorDto sector)
     {
         try{
@@ -60,7 +61,7 @@ public class SectorController extends ApiController {
         }
     }   
     
-    @RequestMapping(value = "api/sector", method =  RequestMethod.PUT)
+    @RequestMapping(method =  RequestMethod.PUT)
     public ResponseEntity<Result<SectorDto>> Put(@Valid @RequestBody SectorDto sector)
     {
         try{
@@ -71,7 +72,7 @@ public class SectorController extends ApiController {
         }
     }
 
-    @RequestMapping(value = "api/sector/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Result<SectorDto>> Delete(@PathVariable(value = "id") long id)
     {
         var entity = this._sectorService.GetById(id);

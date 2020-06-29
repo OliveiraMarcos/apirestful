@@ -14,8 +14,23 @@ import javax.validation.constraints.NotBlank;
  */
 public class SectorDto extends Identity {
     
-    @JsonProperty(defaultValue = "last_name")
+    @JsonProperty(defaultValue = "name")
     @NotBlank(message = "Name is mandatory")
     private String name;
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public SectorDto setName(String name) {
+        this.name = name;
+        return this;
+    }
     
 }

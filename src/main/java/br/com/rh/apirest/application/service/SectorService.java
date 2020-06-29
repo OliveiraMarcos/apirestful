@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SectorService extends BaseService<SectorDto,Sector> implements ISectorService{
     
-    @Autowired
+    //@Autowired
     public SectorService(ISectorRepository repository) {
         super(repository);
     }

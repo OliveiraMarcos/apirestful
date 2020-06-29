@@ -34,8 +34,11 @@ public class People extends BaseEntity implements Serializable {
     @Column(name = "career", nullable = true)
     private String career;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "forumId")
+    @Column(name = "sector_id", nullable = true)
+    private Long sector_id;
+    
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Sector.class)
+    @JoinColumn(name = "sector_id", insertable = false, updatable = false)
     private Sector sector;
 
     /**
@@ -92,5 +95,19 @@ public class People extends BaseEntity implements Serializable {
      */
     public void setSector(Sector sector) {
         this.sector = sector;
+    }
+
+    /**
+     * @return the sector_id
+     */
+    public Long getSectorId() {
+        return sector_id;
+    }
+
+    /**
+     * @param sector_id the sector_id to set
+     */
+    public void setSectorId(Long sector_id) {
+        this.sector_id = sector_id;
     }
 }
