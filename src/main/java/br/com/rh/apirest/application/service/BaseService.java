@@ -44,7 +44,7 @@ public class BaseService<TDto extends Identity,TEntity extends BaseEntity> imple
     @Override
     public List<TDto> GetALL() {
         List<TEntity> entitys = this._repository.findAll();
-        List<TDto> dtos = this.modelMapper.map(entitys, new TypeToken<TDto>(getClass()){}.getType());
+        List<TDto> dtos = this.modelMapper.map(entitys, new TypeToken<List<TDto>>(getClass()){}.getType());
         return dtos;
     }
 

@@ -6,7 +6,6 @@
 package br.com.rh.apirest.domain.interfaces.repository;
 
 import br.com.rh.apirest.domain.entities.People;
-import br.com.rh.apirest.domain.entities.Sector;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

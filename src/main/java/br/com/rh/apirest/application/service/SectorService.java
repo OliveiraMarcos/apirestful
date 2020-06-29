@@ -9,7 +9,6 @@ import br.com.rh.apirest.application.dtos.SectorDto;
 import br.com.rh.apirest.domain.entities.Sector;
 import br.com.rh.apirest.domain.interfaces.repository.ISectorRepository;
 import br.com.rh.apirest.services.api.interfaces.service.ISectorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
